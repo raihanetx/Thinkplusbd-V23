@@ -16,6 +16,7 @@ if (!isset($_SESSION['admin'])) {
 </head>
 <body>
     <div class="container">
+        <a href="admin_dashboard.php">Back to Dashboard</a>
         <h1>Manage Coupons</h1>
         <div id="coupons-container"></div>
         <h2>Create Coupon</h2>

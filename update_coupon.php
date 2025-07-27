@@ -14,7 +14,7 @@ $category = isset($input['category']) ? trim($input['category']) : null;
 $usage_limit = isset($input['usage_limit']) ? (int)$input['usage_limit'] : 0;
 $status = isset($input['status']) ? trim($input['status']) : '';
 
-if (!empty($original_code) && !empty($code) && !empty($discount_type) && $discount_value > 0 && !empty($start_date) && !empty($end_date) && !empty($applicable_to) && $usage_limit > 0 && !empty($status)) {
+if (!empty($original_code) && !empty($code) && !empty($discount_type) && $discount_value > 0 && !empty($start_date) && !empty($end_date) && !empty($applicable_to) && $usage_limit > 0) {
     $coupons_file_path = __DIR__ . '/coupons.json';
     $coupons = [];
     if (file_exists($coupons_file_path)) {
