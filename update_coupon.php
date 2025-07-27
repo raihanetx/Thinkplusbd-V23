@@ -10,7 +10,7 @@ $start_date = isset($input['start_date']) ? trim($input['start_date']) : '';
 $end_date = isset($input['end_date']) ? trim($input['end_date']) : '';
 $applicable_to = isset($input['applicable_to']) ? trim($input['applicable_to']) : '';
 $product_ids = isset($input['product_ids']) ? $input['product_ids'] : null;
-$category = isset($input['category']) ? trim($input['category']) : null;
+$category = isset($input['category']) ? $input['category'] : null;
 $usage_limit = isset($input['usage_limit']) ? (int)$input['usage_limit'] : 0;
 $status = isset($input['status']) ? trim($input['status']) : '';
 

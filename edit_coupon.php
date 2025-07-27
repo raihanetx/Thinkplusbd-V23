@@ -93,7 +93,7 @@ if ($coupon_to_edit === null) {
                     <option value="inactive" <?php echo $coupon_to_edit['status'] === 'inactive' ? 'selected' : ''; ?>>Inactive</option>
                 </select>
             </div>
-            <button type="submit">Update Coupon</button>
+<button type="submit" id="update-coupon-btn">Update Coupon</button>
         </form>
     </div>
     <script>
