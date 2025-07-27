@@ -94,6 +94,7 @@ if ($coupon_to_edit === null) {
                 </select>
             </div>
 <button type="submit" id="update-coupon-btn">Update Coupon</button>
+<button type="button" id="activate-coupon-btn">Activate</button>
         </form>
     </div>
     <script>
@@ -199,6 +200,27 @@ if ($coupon_to_edit === null) {
                     window.location.href = 'admin_coupons.php';
                 } else {
                     alert('Failed to update coupon.');
+                }
+            });
+        });
+
+        document.getElementById('activate-coupon-btn').addEventListener('click', function() {
+            const couponCode = document.getElementById('original-coupon-code').value;
+            fetch('activate_coupon.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ code: couponCode }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Optionally, update the status dropdown to "Active"
+                    document.getElementById('status').value = 'active';
+                    alert('Coupon activated successfully.');
+                } else {
+                    alert('Failed to activate coupon.');
                 }
             });
         });
