@@ -53,12 +53,12 @@ if (!isset($_SESSION['admin'])) {
                 </select>
             </div>
             <div class="form-group" id="specific-product-container" style="display: none;">
-                <label for="product-ids">Product IDs (comma-separated)</label>
-                <input type="text" id="product-ids">
+                <label for="product-ids">Product IDs</label>
+                <div id="product-checkboxes"></div>
             </div>
             <div class="form-group" id="specific-category-container" style="display: none;">
                 <label for="category">Category</label>
-                <input type="text" id="category">
+                <div id="category-checkboxes"></div>
             </div>
             <div class="form-group">
                 <label for="usage-limit">Usage Limit (per user)</label>
@@ -76,6 +76,48 @@ if (!isset($_SESSION['admin'])) {
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Fetch products for the product selection
+            fetch('get_products.php')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('product-checkboxes');
+                    if (data.error) {
+                        container.innerHTML = `<p>${data.error}</p>`;
+                        return;
+                    }
+                    let html = '';
+                    data.forEach(product => {
+                        html += `
+                            <label>
+                                <input type="checkbox" name="product_ids" value="${product.id}">
+                                ${product.name}
+                            </label>
+                        `;
+                    });
+                    container.innerHTML = html;
+                });
+
+            // Fetch categories for the category selection
+            fetch('get_categories.php')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('category-checkboxes');
+                    if (data.error) {
+                        container.innerHTML = `<p>${data.error}</p>`;
+                        return;
+                    }
+                    let html = '';
+                    data.forEach(category => {
+                        html += `
+                            <label>
+                                <input type="checkbox" name="category" value="${category.name}">
+                                ${category.name}
+                            </label>
+                        `;
+                    });
+                    container.innerHTML = html;
+                });
+
             fetch('get_coupons.php')
                 .then(response => response.json())
                 .then(data => {
@@ -100,6 +142,7 @@ if (!isset($_SESSION['admin'])) {
                                 <td>${coupon.usage_limit}</td>
                                 <td>${coupon.status}</td>
                                 <td>
+                                    <button onclick="editCoupon('${coupon.code}')">Edit</button>
                                     <button onclick="deleteCoupon('${coupon.code}')">Delete</button>
                                 </td>
                             </tr>
@@ -137,8 +180,8 @@ if (!isset($_SESSION['admin'])) {
                 const start_date = document.getElementById('start-date').value;
                 const end_date = document.getElementById('end-date').value;
                 const applicable_to = document.getElementById('applicable-to').value;
-                const product_ids = document.getElementById('product-ids').value.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id));
-                const category = document.getElementById('category').value;
+                const product_ids = Array.from(document.querySelectorAll('input[name="product_ids"]:checked')).map(el => el.value);
+                const category = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(el => el.value);
                 const usage_limit = document.getElementById('usage-limit').value;
                 const status = document.getElementById('status').value;
 
@@ -170,6 +213,10 @@ if (!isset($_SESSION['admin'])) {
                 });
             });
         });
+
+        function editCoupon(couponCode) {
+            window.location.href = `edit_coupon.php?code=${couponCode}`;
+        }
 
         function deleteCoupon(couponCode) {
             fetch('delete_coupon.php', {
