@@ -271,6 +271,7 @@ $current_total_pending_all_time = getCurrentTotalPendingOrders($all_site_orders_
                     <li><a href="admin_dashboard.php" class="<?php echo (strpos($_SERVER['REQUEST_URI'], 'admin_dashboard.php') !== false && empty($_GET['page']) && strpos($_SERVER['REQUEST_URI'], 'product_code_generator.html') === false) ? 'active' : ''; ?>"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a></li>
                     <li><a href="admin_dashboard.php?page=categories" class="<?php echo (isset($_GET['page']) && $_GET['page'] === 'categories') ? 'active' : ''; ?>"><i class="fas fa-tags"></i> <span>Manage Categories</span></a></li>
                     <li><a href="admin_dashboard.php?page=edit_products" class="<?php echo (isset($_GET['page']) && $_GET['page'] === 'edit_products') ? 'active' : ''; ?>"><i class="fas fa-edit"></i> <span>Edit Products</span></a></li>
+                    <li><a href="admin_coupons.php" class="<?php echo (strpos($_SERVER['REQUEST_URI'], 'admin_coupons.php') !== false) ? 'active' : ''; ?>"><i class="fas fa-tags"></i> <span>Manage Coupons</span></a></li>
                     <li><a href="product_code_generator.html" target="_blank"><i class="fas fa-plus-circle"></i> <span>Add Product Helper</span></a></li>
                     <li><a href="admin_dashboard.php?logout=1"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
                 </ul>
